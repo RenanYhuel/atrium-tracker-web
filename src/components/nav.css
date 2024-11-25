@@ -1,0 +1,32 @@
+.navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10%; /* Prend 10% de la hauteur de la fenêtre */
+    background-color: #0097d8;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-link {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.navbar-link:visited {
+    color: white;
+}
+
+.navbar-link span {
+    font-size: 40px;
+}
+
+.navbar-link.active {
+    color: #ffcc00;
+}
