@@ -44,9 +44,14 @@ export default function Home() {
     return { totalHours, remainingMinutes };
   };
 
-  const { totalHours, remainingMinutes } = calculateInitialTime();
-  const [hoursToday] = useState(totalHours);
-  const [minutesToday] = useState(remainingMinutes);
+  const [hoursToday, setHoursToday] = useState(0);
+  const [minutesToday, setMinutesToday] = useState(0);
+
+  useEffect(() => {
+    const { totalHours, remainingMinutes } = calculateInitialTime();
+    setHoursToday(totalHours);
+    setMinutesToday(remainingMinutes);
+  }, []);
 
   // Toggle popup
   const togglePopup = () => {
