@@ -1,0 +1,227 @@
+/* Conteneur principal */
+.home-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px; /* Espace intérieur pour éviter que le contenu touche les bords */
+	gap: 20px; /* Espace entre les sections */
+}
+
+/* Section des statistiques */
+.stats {
+	text-align: center;
+	padding: 15px;
+	border: 2px solid #0097d8;
+	border-radius: 10px;
+	background-color: #f0faff; /* Légère couleur de fond pour le contraste */
+	width: 100%; /* Prend toute la largeur disponible */
+	max-width: 400px; /* Limite la largeur */
+}
+
+.stats h1 {
+	color: #0097d8;
+	font-size: 1.45rem; /* Ajuste la taille */
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.stats p.hours {
+	font-size: 1.25rem; /* Taille légèrement réduite */
+	color: #333;
+	font-weight: 600;
+}
+
+.time-info {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+/* Boutons */
+.buttons {
+	display: flex;
+	justify-content: center;
+	gap: 10px; /* Espace entre les boutons */
+}
+
+.action-button {
+	background-color: #0097d8;
+	color: white;
+	font-size: 1rem;
+	font-weight: bold;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 5px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	max-width: 300px; /* Limite la taille */
+	width: 100%; /* Prend tout l’espace disponible */
+	text-align: center;
+}
+
+.action-button:hover {
+	background-color: #007cb5;
+}
+
+.action-button:active {
+	transform: scale(0.97);
+}
+
+.blur-background {
+    filter: blur(5px);
+    pointer-events: none; /* Empêche les interactions avec les éléments floutés */
+}
+
+/* Popup */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 2px solid #ffcc00;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1000;
+    width: 90%; /* Empêche de sortir de l'écran */
+    overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.popup h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0097d8;
+}
+
+.time-fields {
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.time-fields input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 150px; /* Limite la largeur des champs */
+}
+
+.mood-category select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px ;
+}
+
+.focus-level {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.focus-level input[type="range"] {
+    width: 100%;
+}
+
+.focus-level span {
+    font-weight: bold;
+    color: #333;
+}
+.notes {
+    width: 100%;
+}
+
+.notes textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+}
+
+.btn-pop {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.open-button {
+    background-color: #ffcc00;
+    color: black;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px; /* Limite la taille du bouton */
+}
+
+.open-button:hover {
+    background-color: #e6b800;
+}
+
+.open-button:active {
+    transform: scale(0.97);
+}
+  
+.close-button {
+    background-color: #ff6666;
+    color: white;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px; /* Limite la taille du bouton */
+}
+
+/* Calendrier */
+
+.calendar {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr); /* 7 colonnes pour les jours de la semaine */
+	gap: 5px;
+	padding: 10px;
+	width: 100%;
+	max-width: 400px;
+	border: 2px solid #0097d8;
+	border-radius: 10px;
+	background-color: #f0faff;
+}
+
+.calendar-day {
+	text-align: center;
+	padding: 10px;
+	font-size: 0.8rem;
+	color: #333;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: white;
+	font-weight: 500;
+}
+
+.calendar-day.current-day {
+	background-color: #ffcc00; /* Met en évidence le jour actuel */
+	font-weight: bold;
+}
