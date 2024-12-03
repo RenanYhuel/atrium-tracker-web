@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import "./home.css";
-import { firestore } from '@/firebase'; // Import your Firebase configuration
 
 type Period = {
   date: string;
@@ -28,15 +27,21 @@ export default function Home() {
   const [notes, setNotes] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Function to format numbers
+  const format = (num: number) => (num < 10 ? `0${num}` : num);
+
   // Calculate initial time values from localStorage
   const calculateInitialTime = () => {
     const periods = JSON.parse(localStorage.getItem("periods") as string) || [];
     let totalMinutes = 0;
+    const todayDate = new Date().toLocaleDateString("fr-FR");
 
     periods.forEach((period: Period) => {
-      const timeStart = new Date(`1970-01-01T${period.startTime}:00`);
-      const timeEnd = new Date(`1970-01-01T${period.endTime}:00`);
-      totalMinutes += ((timeEnd as unknown as number) - (timeStart as unknown as number)) / 60000; // Convert ms to minutes
+      if (period.date === todayDate) {
+        const timeStart = new Date(`1970-01-01T${period.startTime}:00`);
+        const timeEnd = new Date(`1970-01-01T${period.endTime}:00`);
+        totalMinutes += ((timeEnd as unknown as number) - (timeStart as unknown as number)) / 60000; // Convert ms to minutes
+      }
     });
 
     const totalHours = Math.floor(totalMinutes / 60);
@@ -80,24 +85,6 @@ export default function Home() {
     return () => clearInterval(intervalToday);
   }, [hoursToday, minutesToday, minutesTodayDisplayed, hoursTodayDisplayed]);
 
-  // Calculate total time from stored periods
-  const calculateTotalTime = () => {
-    const periods = JSON.parse(localStorage.getItem("periods") as string) || [];
-    let totalMinutes = 0;
-
-    periods.forEach((period: Period) => {
-      const timeStart = new Date(`1970-01-01T${period.startTime}:00`);
-      const timeEnd = new Date(`1970-01-01T${period.endTime}:00`);
-      totalMinutes += ((timeEnd as unknown as number) - (timeStart as unknown as number)) / 60000; // Convert ms to minutes
-    });
-
-    const totalHours = Math.floor(totalMinutes / 60);
-    const remainingMinutes = totalMinutes % 60;
-
-    setHoursTodayDisplayed(totalHours);
-    setMinutesTodayDisplayed(remainingMinutes);
-  };
-
   // Save period to localStorage
   const savePeriod = () => {
     if (!startTime || !endTime || !mood || !category) {
@@ -128,8 +115,17 @@ export default function Home() {
     periods.push(newPeriod);
 
     localStorage.setItem("periods", JSON.stringify(periods));
-    calculateTotalTime();  // Recalculer le temps total après l'enregistrement
     togglePopup();
+    setCategory("")
+    setFocusLevel(5)
+    setMood("")
+    setNotes("")
+    setStartTime("")
+    setEndTime("")
+    const { totalHours, remainingMinutes } = calculateInitialTime();
+    setHoursToday(totalHours);
+    setMinutesToday(remainingMinutes);
+    
   };
 
   // Get current date
@@ -182,7 +178,7 @@ export default function Home() {
           <h1>Aujourd&apos;hui nous sommes le</h1>
           <p className="hours">{currentDate}</p>
           <p className="time-info">
-            Temps de la journée : {hoursTodayDisplayed}h {minutesTodayDisplayed}min
+            Temps de la journée : {format(hoursTodayDisplayed)}h {format(minutesTodayDisplayed)}min
           </p>
         </div>
 
@@ -258,15 +254,14 @@ export default function Home() {
             </div>
 
             <div className="buttons btn-pop">
-              <button onClick={savePeriod} className="close-button">Fermer</button>
-              <button className="open-button" onClick={togglePopup}>
+              <button onClick={togglePopup} className="close-button">Fermer</button>
+              <button className="open-button" onClick={savePeriod}>
                 Enregistrer
               </button>
             </div>
           </div>
         </div>
       )}
-
     </>
   );
 }
